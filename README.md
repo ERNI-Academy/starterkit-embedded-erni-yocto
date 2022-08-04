@@ -1,52 +1,56 @@
-# About {{ Name }}
+# About starterkit-embedded-erni-yocto
 
-ERNI Academy StarterKit, PoC, or Gidelines. This is an about description of your repository.
+The Erni Embedded Community have developed a embedded GNU/Linux distribution. It is a distribution intended to start and learn all about Yocto/poky. We would like to see your contributions in this distribution. With these contributions it will a plenty-of-features distribution. We have called it **Ideafix**.
+
+Why?
+Because Ideafix is the most loyal Operative System of our Gaulish village aka Erni Embedded Community.
+
+<img src="https://residenciacaninaidefix.com/wp-content/uploads/2018/10/idefix.jpeg" width="150">
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-## Built With
-
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-- [Tools A](https://example.com)
-- [Framework B](https://example.com)
-- [Project C](https://example.com)
 
 ## Features
 
-- Be awesome
-- Make things faster
-
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally. To get a local copy up and running follow these simple example steps.
+- This yocto layer contains the minimal configuration to start working with Yocto/poky
+- It builds an image ( bootloader + sourcetree + initramfs + kernel + partition table + rootfs ) which can be used to boot a Raspberry Pi 3b+/4
+- The image can be tested on a virtual machine based on Qemu
 
 ## Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+**Host OS**
+
+Ubuntu 22.04 and 20.04 are elegibles as Host OS.
 
 ## Installation
 
-Installation instructions {{ Name }} by running:
-
 1. Clone the repo
 
-   ```sh
-   git clone https://github.com/ERNI-Academy/Project-Name.git
-   ```
+```bash
+git clone https://github.com/ERNI-Academy/starterkit-embedded-erni-yocto.git
+```
 
-2. Install packages
+2. Install the depencencies
 
-    ```sh
-    npm install
-    ```
+```bash
+sudo apt install gawk wget git-core diffstat unzip texinfo build-essential chrpath socat cpio python3 python3-pip zstd libsdl1.2-dev xterm make xsltproc docbook-utils fop dblatex xmlto libssl-dev pv
 
-3. Configure
+pip3 install kas==3.0.2
+```
 
-    ```JS
-    const API_KEY = 'ENTER YOUR API';
-    ```
+## Getting Started
+
+**Checkout layers**
+```
+kas checkout conf/ideafix-rpi3.yml
+```
+
+**Init oe environment**
+```bash
+source sources/poky/oe-init-build-env raspberrypi3
+```
 
 ## Contributing
 
@@ -82,5 +86,16 @@ Check [https://repobeats.axiom.co/](https://repobeats.axiom.co/) for the right U
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/Gmatarrubia"><img src="https://avatars.githubusercontent.com/u/7702234?v=4" width="100px;" alt=""/><br /><sub><b>gmatarrubia</b></sub></a><br /><a href="https://github.com/Gmatarrubia" title="Code">💻</a> <a href="#content-gmatarrubia" title="Content">🖋</a> <a href="https://github.com/ERNI-Academy/starterkit-embedded-erni-yocto//commits?author=gmatarrubia" title="Documentation">📖</a> <a href="#design-gmatarrubia" title="Design">🎨</a> <a href="#ideas-gmatarrubia" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-gmatarrubia" title="Maintenance">🚧</a> <a href="https://github.com/ERNI-Academy/starterkit-embedded-erni-yocto//commits?author=gmatarrubia" title="Tests">⚠️</a> <a href="#example-gmatarrubia" title="Examples">💡</a> <a href="https://github.com/ERNI-Academy/starterkit-embedded-erni-yocto//pulls?q=is%3Apr+reviewed-by%3gmatarrubia" title="Reviewed Pull Requests">👀</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
