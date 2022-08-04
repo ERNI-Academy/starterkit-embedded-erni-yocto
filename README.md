@@ -26,18 +26,18 @@ Ubuntu 22.04 and 20.04 are elegibles as Host OS.
 
 ## Installation
 
-1. Clone the repo
+1. Install the depencencies
+
+```bash
+sudo apt install gawk wget git-core git diffstat unzip texinfo build-essential chrpath socat cpio python3 python3-pip zstd libsdl1.2-dev xterm make xsltproc docbook-utils fop dblatex xmlto libssl-dev pv
+
+pip3 install kas==3.0.2
+```
+
+2. Clone the repo
 
 ```bash
 git clone https://github.com/ERNI-Academy/starterkit-embedded-erni-yocto.git
-```
-
-2. Install the depencencies
-
-```bash
-sudo apt install gawk wget git-core diffstat unzip texinfo build-essential chrpath socat cpio python3 python3-pip zstd libsdl1.2-dev xterm make xsltproc docbook-utils fop dblatex xmlto libssl-dev pv
-
-pip3 install kas==3.0.2
 ```
 
 ## Getting Started
@@ -47,9 +47,19 @@ pip3 install kas==3.0.2
 kas checkout conf/ideafix-rpi3.yml
 ```
 
-**Init oe environment**
+**Init bitbake (open-embedded) environment**
 ```bash
 source sources/poky/oe-init-build-env raspberrypi3
+```
+
+**Build the image (this could take several hours)**
+```bash
+bitbake core-image-minimal
+```
+
+**Test the "image" (kernel+initramfs+rootfs)**
+```bash
+runqemu
 ```
 
 ## Contributing
