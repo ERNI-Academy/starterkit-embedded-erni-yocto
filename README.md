@@ -44,14 +44,16 @@ git clone https://github.com/ERNI-Academy/starterkit-embedded-erni-yocto.git
 
 1. Checkout layers.
 ```
-kas checkout conf/ideafix-rpi3.yml
+kas checkout conf/ideafix.yml
 ```
 
 2. Init bitbake (open-embedded) environment.
 ```bash
 source sources/poky/oe-init-build-env raspberrypi3
 # Fill the local.conf with the starting configuration
-cat ../conf/local.conf >> conf/local.conf
+cat ../conf/local.conf > conf/local.conf
+cat ../build/conf/local.conf >> conf/local.conf
+cp ../build/conf/bblayers.conf conf/bblayers.conf
 ```
 
 3. Build the image (this could take several hours)
