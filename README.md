@@ -42,22 +42,24 @@ git clone https://github.com/ERNI-Academy/starterkit-embedded-erni-yocto.git
 
 ## Getting Started
 
-**Checkout layers**
+1. Checkout layers.
 ```
 kas checkout conf/ideafix-rpi3.yml
 ```
 
-**Init bitbake (open-embedded) environment**
+2. Init bitbake (open-embedded) environment.
 ```bash
 source sources/poky/oe-init-build-env raspberrypi3
+# Fill the local.conf with the starting configuration
+cat ../conf/local.conf >> conf/local.conf
 ```
 
-**Build the image (this could take several hours)**
+3. Build the image (this could take several hours)
 ```bash
 bitbake core-image-minimal
 ```
 
-**Test the "image" (kernel+initramfs+rootfs)**
+4. Test the "image" (kernel+initramfs+rootfs)
 ```bash
 runqemu
 ```
@@ -69,8 +71,6 @@ Please see our [Contribution Guide](CONTRIBUTING.md) to learn how to contribute.
 ## License
 
 ![MIT](https://img.shields.io/badge/License-MIT-blue.svg)
-
-(LICENSE) © {{Year}} [ERNI - Swiss Software Engineering](https://www.betterask.erni)
 
 ## Code of conduct
 
