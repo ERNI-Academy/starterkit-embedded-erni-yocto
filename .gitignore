@@ -25,3 +25,5 @@ output.*
 .devcontainer
 .ssh
 build/
+qemu/
+rpi3/

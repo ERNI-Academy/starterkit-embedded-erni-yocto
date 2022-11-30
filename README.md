@@ -43,27 +43,41 @@ git clone https://github.com/ERNI-Academy/starterkit-embedded-erni-yocto.git
 ## Getting Started
 
 1. Checkout layers.
-```
+
+```bash
+kas checkout conf/ideafix.yml
+
+# Additionally you can specify the build folder
+# This is useful keep isolated the qemu and the real builds
+export KAS_BUILD_DIR=qemu
+kas checkout conf/ideafix.yml
+# or
+export KAS_BUILD_DIR=rpi3
 kas checkout conf/ideafix.yml
 ```
 
-2. Init bitbake (open-embedded) environment.
-```bash
-source sources/poky/oe-init-build-env raspberrypi3
-# Fill the local.conf with the starting configuration
-cat ../conf/local.conf > conf/local.conf
-cat ../build/conf/local.conf >> conf/local.conf
-cp ../build/conf/bblayers.conf conf/bblayers.conf
-```
+2. Build the image
 
-3. Build the image (this could take several hours)
-```bash
-bitbake core-image-minimal
-```
+    Note: This could take several hours
 
-4. Test the "image" (kernel+initramfs+rootfs)
+    ```bash
+    # Build the image for testing in qemu
+    kas build conf/qemu.yml
+
+    # Build the image for deploying in the raspberry pi3
+    kas build conf/rpi3.yml
+
+    # Clarification: these commands are equivalent to:
+    kas shell conf/rpi3.yml -c "bitbake core-image-minimal"
+    # Which is more explicit with the underliying command
+    ```
+
+3. Test the "image" (kernel+initramfs+rootfs)
+
 ```bash
-runqemu
+# Note: Qemu config must be built before running the qemu
+export KAS_BUILD_DIR=qemu
+kas shell conf/qemu.yml -c "runqemu qemuarm serialstdio"
 ```
 
 ## Contributing
