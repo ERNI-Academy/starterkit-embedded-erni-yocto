@@ -9,12 +9,12 @@ repos:
   meta-raspberrypi:
     url: https://github.com/agherzan/meta-raspberrypi
     path: sources/meta-raspberrypi
-    refspec: honister
+    refspec: kirkstone
 
   poky:
     url: https://git.yoctoproject.org/git/poky
     path: sources/poky
-    refspec: honister
+    refspec: kirkstone
     layers:
       meta:
       meta-poky:
@@ -23,7 +23,7 @@ repos:
   meta-openembedded:
     url: https://github.com/openembedded/meta-openembedded
     path: sources/meta-openembedded
-    refspec: honister
+    refspec: kirkstone
     layers:
       meta-oe:
       meta-python:
@@ -35,7 +35,7 @@ repos:
   meta-security:
     url: https://git.yoctoproject.org/git/meta-security
     path: sources/meta-security
-    refspec: honister
+    refspec: kirkstone
 
   meta-erni:
     path: meta-erni

@@ -78,6 +78,8 @@ kas checkout conf/ideafix.yml
 # Note: Qemu config must be built before running the qemu
 export KAS_BUILD_DIR=qemu
 kas shell conf/qemu.yml -c "runqemu qemuarm serialstdio"
+# or
+kas shell conf/qemu.yml -c "runqemu qemuarm serialstdio nographic"
 ```
 
 ## Contributing
