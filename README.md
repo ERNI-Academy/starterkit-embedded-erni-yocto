@@ -1,9 +1,8 @@
 # About starterkit-embedded-erni-yocto
 
-The Erni Embedded Community have developed a embedded GNU/Linux distribution. It is a distribution intended to start and learn all about Yocto/poky. We would like to see your contributions in this distribution. With these contributions it will a plenty-of-features distribution. We have called it **Ideafix**.
+The Erni Embedded Community have developed an embedded GNU/Linux distribution. It is a distribution intended to get started and learn everything about Yocto/poky. We would like to see your contributions in this distribution. With these contributions it will hopefully become a features-plenty distribution. We have called it **Ideafix**.
 
-Why?
-Because Ideafix is the most loyal Operative System of our Gaulish village aka Erni Embedded Community.
+Why? Because Ideafix is the most loyal Operative System of our Gaulish village aka _Erni Embedded Community_.
 
 <img src="https://residenciacaninaidefix.com/wp-content/uploads/2018/10/idefix.jpeg" width="150">
 
@@ -36,8 +35,11 @@ pip3 install kas==3.0.2
 
 2. Clone the repo
 
+Clone the repo and cd to the repo folder
+
 ```bash
 git clone https://github.com/ERNI-Academy/starterkit-embedded-erni-yocto.git
+cd starterkit-embedded-erni-yocto.git
 ```
 
 ## Getting Started
@@ -58,6 +60,8 @@ kas checkout conf/ideafix.yml
 
 2. Build the image
 
+> why is this indented?
+
     Note: This could take several hours
 
     ```bash
@@ -70,7 +74,11 @@ kas checkout conf/ideafix.yml
     # Clarification: these commands are equivalent to:
     kas shell conf/rpi3.yml -c "bitbake core-image-minimal"
     # Which is more explicit with the underliying command
+
+    # MGC: hmmm, no, it is not, the 2 first commands execute very quickly, the last one takes hours
     ```
+
+what do the build commands do? how are they related to the kash shell command (last one)?   
 
 3. Test the "image" (kernel+initramfs+rootfs)
 
@@ -81,6 +89,8 @@ kas shell conf/qemu.yml -c "runqemu qemuarm serialstdio"
 # or
 kas shell conf/qemu.yml -c "runqemu qemuarm serialstdio nographic"
 ```
+
+If the rpi3.yml was built, what do these kas shell command do / launch?
 
 ## Contributing
 
