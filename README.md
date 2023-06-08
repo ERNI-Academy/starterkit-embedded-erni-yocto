@@ -7,7 +7,7 @@ to get your contributions so that it becomes a features-plenty distribution.
 Why *Ideafix*? Because Ideafix is the most loyal Operative System of our Gaulish village
 aka _Erni Embedded Community_.
 
-<img src="https://residenciacaninaidefix.com/wp-content/uploads/2018/10/idefix.jpeg" width="150">
+<img src="idefix.jpeg" width="150">
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
