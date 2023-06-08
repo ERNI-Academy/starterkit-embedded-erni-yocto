@@ -1,8 +1,11 @@
-# About starterkit-embedded-erni-yocto
+# About starterkit-embedded-erni-yocto (AKA ideafix)
 
-The Erni Embedded Community have developed an embedded GNU/Linux distribution. It is a distribution intended to get started and learn everything about Yocto/poky. We would like to see your contributions in this distribution. With these contributions it will hopefully become a features-plenty distribution. We have called it **Ideafix**.
+The Erni Embedded Community has developed **Ideafix**, an embedded GNU/Linux distribution. It
+is intended to get started about _yocto/poky_, and learn as much as possible about it. We'd love
+to get your contributions so that it becomes a features-plenty distribution.
 
-Why? Because Ideafix is the most loyal Operative System of our Gaulish village aka _Erni Embedded Community_.
+Why *Ideafix*? Because Ideafix is the most loyal Operative System of our Gaulish village
+aka _Erni Embedded Community_.
 
 <img src="https://residenciacaninaidefix.com/wp-content/uploads/2018/10/idefix.jpeg" width="150">
 
@@ -11,115 +14,177 @@ Why? Because Ideafix is the most loyal Operative System of our Gaulish village a
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 
-## Features
+## features
 
-- This yocto layer contains the minimal configuration to start working with Yocto/poky
-- It builds an image ( bootloader + sourcetree + initramfs + kernel + partition table + rootfs ) which can be used to boot a Raspberry Pi 3b+/4
-- The image can be tested on a virtual machine based on Qemu
+- this yocto layer contains the minimal configuration to start working with yocto/poky
+- it builds an image (bootloader + sourcetree + initramfs + kernel + partition table +
+rootfs) which can be used to boot a Raspberry Pi 3b+/4
+- the image can be tested on a on Qemu-based virtual machine
 
-## Prerequisites
 
-**Host OS**
+## prerequisites (host OS)
 
-Ubuntu 22.04 and 20.04 are elegibles as Host OS.
+Both Ubuntu 22.04 and 20.04 are elegible as host OS.
 
-## Installation
 
-1. Install the depencencies
+## installation
+
+Get the apt required packages + repo cloning.
+
+
+### get required packages
+
+The following commands are required to get the apt packages.
 
 ```bash
-sudo apt install gawk wget git-core git diffstat unzip texinfo build-essential chrpath socat cpio python3 python3-pip zstd libsdl1.2-dev xterm make xsltproc docbook-utils fop dblatex xmlto libssl-dev pv
+sudo apt update
+
+sudo apt install \
+    gawk wget git-core git diffstat unzip build-essential chrpath socat cpio \
+    python3 python3-pip zstd libsdl1.2-dev xterm make xsltproc fop xmlto libssl-dev pv \
+    docbook-utils texinfo dblatex 
 
 pip3 install kas==3.0.2
 ```
 
-2. Clone the repo
+### clone the repo
 
-Clone the repo and cd to the repo folder
+Clone the ideafix repo, then cd to the cloned repo folder.
 
 ```bash
 git clone https://github.com/ERNI-Academy/starterkit-embedded-erni-yocto.git
 cd starterkit-embedded-erni-yocto.git
 ```
 
-## Getting Started
+## generation
 
-1. Checkout layers.
+This project uses KAS to generate and build the image. KAS is a wrapper for the
+yocto bitbake standard tool, that makes things easier for newcomers to yocto. It
+uses yml files as input, and from there it downloads the required repositories, and
+generates the bitbake recipes & output folders.
+
+The generation consists in checking out the _ideafix_ configuration file, and then
+issuing the corresponding build command, that in ideafix can either be for qemu or rPI.
+
+
+### layers checkout
+
+The first thing to do is to checkout the main kas file, in our case, `ideafix.yml`.
 
 ```bash
-kas checkout conf/ideafix.yml
-
-# Additionally you can specify the build folder
-# This is useful keep isolated the qemu and the real builds
-export KAS_BUILD_DIR=qemu
-kas checkout conf/ideafix.yml
-# or
-export KAS_BUILD_DIR=rpi3
 kas checkout conf/ideafix.yml
 ```
 
-2. Build the image
+The checkout command does not need to be executed on different sessions, it has
+persistency on the same repo clone folder.
 
-> why is this indented?
 
-    Note: This could take several hours
+### image build
 
-    ```bash
-    # Build the image for testing in qemu
-    kas build conf/qemu.yml
+The image can be built both for rPI (ARM cross-compiling) and for qemu (native simulation). The
+rPI build generates a file that can be flashed into a microSD disk that can be inserted into 
+the rPI. It is suggested to start with the qemu for the first build, and then the successive
+experimental changes.
 
-    # Build the image for deploying in the raspberry pi3
-    kas build conf/rpi3.yml
-
-    # Clarification: these commands are equivalent to:
-    kas shell conf/rpi3.yml -c "bitbake core-image-minimal"
-    # Which is more explicit with the underliying command
-
-    # MGC: hmmm, no, it is not, the 2 first commands execute very quickly, the last one takes hours
-    ```
-
-what do the build commands do? how are they related to the kash shell command (last one)?   
-
-3. Test the "image" (kernel+initramfs+rootfs)
+The build folder is the one pointed to by the `KAS_BUILD_DIR` environment variable. Examples:
 
 ```bash
-# Note: Qemu config must be built before running the qemu
-export KAS_BUILD_DIR=qemu
+export KAS_BUILD_DIR=build_branch2
+export KAS_BUILD_DIR=build_featureX
+```
+
+This variable has to be set on every session. Otherwise the output will be in the `build` folder.
+
+```bash
+# build the image for testing in qemu
+kas build conf/qemu.yml
+
+# build the image for deploying in the raspberry pi3
+kas build conf/rpi3.yml
+```
+
+Clarification: In case you are familiar with bitbake (yocto's default tool) the 2
+above `kas` commands are equivalent to the following `bitbake` commands:
+
+```bash
+kas shell conf/qemu.yml -c "bitbake core-image-minimal"
+
+kas shell conf/rpi3.yml -c "bitbake core-image-minimal"
+```
+
+    Note: The build process may take several hours. The build cache is stored in the
+    sstate folder. The first of each rpi3 and qemu builds will take a lot of time, but
+    subsequent ones, specially if changes are small, will take much less, even if the
+    output folder is changed.
+
+
+## test & deployment
+
+Once the images are built, it is possible to either test the generated qemu or deploy to rPI.
+
+It is important to set again the `KAS_BUILD_DIR` var in case the build was performed in a 
+different shell session.
+
+### qemu verification
+
+To run the image with qemu, execute the following commands depending if a GUI frontend is
+desired or not.
+
+```bash
 kas shell conf/qemu.yml -c "runqemu qemuarm serialstdio"
-# or
+
 kas shell conf/qemu.yml -c "runqemu qemuarm serialstdio nographic"
 ```
 
-If the rpi3.yml was built, what do these kas shell command do / launch?
+Then it is possible to login with the _root_ user or even to ssh to the qemu machine
+address.
 
-## Contributing
+In order to properly stop the qemu it is best to issue the `shutdown` command (inside
+the qemu!).
 
-Please see our [Contribution Guide](CONTRIBUTING.md) to learn how to contribute.
 
-## License
+
+### rpi deployment
+
+Once the image has been satisfactorily tested, it is now possible to deploy it
+with the `getImageReady2Flash.sh` script. The images files are located in
+`tmp-glibc/deploy/images/raspberrypi3` below the build folder.
+
+
+## contributing
+
+Please see our [Contributing Guide](CONTRIBUTING.md) to learn how to contribute.
+
+
+## license
 
 ![MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
-## Code of conduct
+
+## code of conduct
 
 Please see our [Code of Conduct](CODE_OF_CONDUCT.md)
 
-## Stats
+
+## stats
 
 Check [https://repobeats.axiom.co/](https://repobeats.axiom.co/) for the right URL
 
-## Follow us
+
+## follow us
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/ERNI?style=social)](https://www.twitter.com/ERNI)
 [![Twitch Status](https://img.shields.io/twitch/status/erni_academy?label=Twitch%20Erni%20Academy&style=social)](https://www.twitch.tv/erni_academy)
 [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UCkdDcxjml85-Ydn7Dc577WQ?label=Youtube%20Erni%20Academy&style=social)](https://www.youtube.com/channel/UCkdDcxjml85-Ydn7Dc577WQ)
 [![Linkedin](https://img.shields.io/badge/linkedin-31k-green?style=social&logo=Linkedin)](https://www.linkedin.com/company/erni)
 
-## Contact
+
+## contact
 
 📧 [esp-services@betterask.erni](mailto:esp-services@betterask.erni)
 
-## Contributors ✨
+
+## contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -137,3 +202,4 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
