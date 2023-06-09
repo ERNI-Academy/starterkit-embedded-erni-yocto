@@ -112,10 +112,10 @@ kas shell conf/qemu.yml -c "bitbake core-image-minimal"
 kas shell conf/rpi3.yml -c "bitbake core-image-minimal"
 ```
 
-    Note: The build process may take several hours. The build cache is stored in the
-    sstate folder. The first of each rpi3 and qemu builds will take a lot of time, but
-    subsequent ones, specially if changes are small, will take much less, even if the
-    output folder is changed.
+> Note: The build process may take several hours. The build cache is stored in the
+> `sstate` folder. The first of each rpi3 and qemu builds will take a lot of time, but
+> subsequent ones, specially if changes are small, will take much less, even if the
+> output folder is changed.
 
 
 ## test & deployment
