@@ -75,8 +75,11 @@ The first thing to do is to checkout the main kas file, in our case, `ideafix.ym
 kas checkout conf/ideafix.yml
 ```
 
+This will download all the necessary yocto stuff.
+
 The checkout command does not need to be executed on different sessions, it has
-persistency on the same repo clone folder.
+persistency on the same repo clone folder. It is only required to be re-executed when
+you know an update of the yocto is needed.
 
 
 ### image build
