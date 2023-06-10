@@ -41,8 +41,7 @@ sudo apt update
 
 sudo apt install \
     gawk wget git-core git diffstat unzip build-essential chrpath socat cpio \
-    python3 python3-pip zstd libsdl1.2-dev xterm make xsltproc fop xmlto libssl-dev pv \
-    docbook-utils texinfo dblatex 
+    python3 python3-pip zstd libsdl1.2-dev xterm make xsltproc fop xmlto libssl-dev pv
 
 pip3 install kas==3.0.2
 ```
