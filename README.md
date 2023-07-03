@@ -88,7 +88,7 @@ rPI build generates a file that can be flashed into a microSD disk that can be i
 the rPI. It is suggested to start with the qemu for the first build, and then the successive
 experimental changes.
 
-The build folder is the one pointed to by the `KAS_BUILD_DIR` environment variable. Examples:
+The `KAS_BUILD_DIR` environment variable configures the build folder. It is highly recommended to isolate the build between the different targets. Thus, it could be used one of the following examples if it is more convenient:
 
 ```bash
 export KAS_BUILD_DIR=qemu
