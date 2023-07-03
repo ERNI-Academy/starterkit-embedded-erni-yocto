@@ -91,8 +91,8 @@ experimental changes.
 The build folder is the one pointed to by the `KAS_BUILD_DIR` environment variable. Examples:
 
 ```bash
-export KAS_BUILD_DIR=build_branch2
-export KAS_BUILD_DIR=build_featureX
+export KAS_BUILD_DIR=qemu
+export KAS_BUILD_DIR=raspberrypi
 ```
 
 This variable has to be set on every session. Otherwise the output will be in the `build` folder.
